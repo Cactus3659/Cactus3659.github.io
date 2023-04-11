@@ -27,6 +27,8 @@ html {
     width: 1400px;
     margin-top: 75px;
     margin-left: 150px;
+    font-size: 48px;
+    text-align: center;
 }
 
 button, p  {
