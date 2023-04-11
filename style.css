@@ -20,6 +20,11 @@ html {
 	border-radius: 25px;
 }
 
+#box2 {
+    background: #008080;
+    border-radius: 25px;
+}
+
 button, p  {
 	padding:50px;
     font-family: Arial, Helvetica, sans-serif;
