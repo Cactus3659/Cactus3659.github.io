@@ -23,6 +23,8 @@ html {
 #box2 {
     background: #008080;
     border-radius: 25px;
+    height: 600px;
+    width: 800px;
 }
 
 button, p  {
