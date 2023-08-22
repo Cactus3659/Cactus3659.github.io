@@ -4,77 +4,27 @@ body {
 }
 
 html {
-    background: #424242
+    background: #0d1117;
+    color: #ffffff;
 }
 
-#box1{
-	width:min-content;
-	height:fit-content;
-	margin-top:75px;
-    margin-left:5px;
-	background: #008080;
-	border-radius: 25px;
-}
-
-
-#box2 {
-    background: #008080;
-    border-radius: 25px;
-    height: 800px;
-    width: 1400px;
-    margin-top: 75px;
-    margin-left: 150px;
-    font-size: 48px;
-    text-align: center;
-}
-
-button, p  {
-	padding:50px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 24px;
-    font-weight: bold;
-    background: #008080;
-    border: 0;
-    text-align: middle;
-    width:195px;
-    height: 150px;
-    border-radius:25px;
-}
-
-.btn:hover{
-    background: #006666;
-}
-
-#box1 p {
-	white-space:pre;
-	font-size:smaller;
-	font-family:monospace;
-}
-
-a{
-    color:inherit;
+a {
+    color: inherit;
     text-decoration: none;
 }
 
-@media (max-width:600px) {
-    #box1{
-        width:min-content;
-        height:fit-content;
-        margin-top:75px;
-        margin-left:5px;
-        background: #008080;
-        border-radius: 25px;
-    }
-    
-    
-    #box2 {
-        background: #008080;
-        border-radius: 25px;
-        height: 800px;
-        width: 1400px;
-        margin-top: 75px;
-        margin-left: 150px;
-        font-size: 48px;
-        text-align: center;
-    }
+#tabrow {
+    list-style-type:none;
+    width: inherit;
+    height: inherit;
+    display: flex;
+    font-size: 24px;
+}
+
+.tabrowholder {
+    height: 24px;
+}
+
+.li {
+    row-gap: 2em;
 }
