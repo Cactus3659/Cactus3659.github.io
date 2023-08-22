@@ -10,8 +10,8 @@ html {
 #box1{
 	width:min-content;
 	height:fit-content;
-	margin-top:7%;
-    margin-left:0.3%;
+	margin-top:75px;
+    margin-left:5px;
 
 }
 
@@ -23,10 +23,10 @@ html {
 #box2 {
     background: #008080;
     border-radius: 25px;
-    height: 74%;
-    width: 73%;
-    margin-top: 7%;
-    margin-left: 8%;
+    height: 800px;
+    width: 1400px;
+    margin-top: 75px;
+    margin-left: 150px;
     font-size: 48px;
     text-align: center;
 }
@@ -39,8 +39,8 @@ button, p  {
     background: #008080;
     border: 0;
     text-align: middle;
-    width:10%;
-    height: 14%;
+    width:195px;
+    height: 150px;
     border-radius:25px;
 }
 
