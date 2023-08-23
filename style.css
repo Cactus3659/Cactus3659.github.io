@@ -1,5 +1,4 @@
 body {
-	margin:30px;
 	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif
 }
 
@@ -15,16 +14,25 @@ a {
 
 #tabrow {
     list-style-type:none;
-    width: inherit;
-    height: inherit;
     display: flex;
+    column-gap: 2em;
     font-size: 24px;
+    
 }
 
 .tabrowholder {
-    height: 24px;
+ 
 }
 
 .li {
-    row-gap: 2em;
-} 
+    margin: 0 auto;
+}
+
+.idk {
+
+}
+
+.header{
+    font-size: 24px;
+    text-align: center;
+}
