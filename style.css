@@ -12,26 +12,6 @@ a {
     text-decoration: none;
 }
 
-#tabrow {
-    list-style-type:none;
-    display: flex;
-    column-gap: 2em;
-    font-size: 24px;
-     
-}
-
-.tabrowholder {
- 
-}
-
-.li {
-    margin: 0 auto;
-}
-
-.idk {
-
-}
-
 .header{
     font-size: 24px;
     text-align: center;
