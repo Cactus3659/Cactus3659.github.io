@@ -1,10 +1,12 @@
 <!DOCTYPE HTML>
 <html>
     <head>
+        <style> body { margin: 0; } </style>
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="./style.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Cactus35</title>
+        <script src="//unpkg.com/globe.gl"></script>
         
         
     </head>
@@ -12,9 +14,38 @@
         <div class="header">
             <b>Cactus35</b>
             <br>
-            <b>I am currently studying computer science.</b>
+            <b>I am studying computer science.</b>
             <br>
             <b>I am also learning python and web development by myself.</b>
+            <br>
+            <a href="https://github.com/Cactus3659"><b>Github</b></a>
         </div>
+        <div id="globeViz"></div>
+            <script>
+                const world = Globe()
+                  (document.getElementById('globeViz'))
+                  .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
+                  .backgroundColor('#000000')
+                  .pointOfView({lng: 4,lat: 30, altitude: 4 }, 5000)
+                  .polygonCapColor(feat => 'rgba(0, 225, 0, 0.6)')
+                  .polygonSideColor(() => 'rgba(100, 0, 0, 0.3)')
+                  .polygonLabel(({ properties: d }) => `
+                      <b>${d.ADMIN} (${d.ISO_A2})</b> <br />
+                      Population: <i>${Math.round(+d.POP_EST / 1e4) / 1e2}M</i>
+                    `);
+        
+                // Auto-rotate
+                world.controls().autoRotate = true;
+                    world.controls().autoRotateSpeed = 1.8;
+            
+                    fetch('https://raw.githubusercontent.com/vasturiano/globe.gl/master/example/datasets/ne_110m_admin_0_countries.geojson').then(res => res.json()).then(countries => {
+                     world.polygonsData(countries.features.filter(d => d.properties.ISO_A2 == 'SI'));
+
+                    setTimeout(() => world
+                     .polygonsTransitionDuration(4000)
+                     .polygonAltitude(0.6)
+                    , 3000);
+                    });
+            </script>
     </body>
 </html>
