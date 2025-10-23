@@ -33,6 +33,17 @@
                 color: #ff4444;
                 display: none;
             }
+            .game-paused {
+                font-size: 32px;
+                font-weight: bold;
+                color: #ffdd48;
+                display: none;
+            }
+            .stats {
+                font-size: 18px;
+                color: #ffffff;
+                margin: 5px;
+            }
         </style>
     </head>
     <body>
@@ -43,10 +54,15 @@
         </div>
         
         <div class="game-container">
-            <div class="score">Score: <span id="score">0</span></div>
+            <div class="score">Score: <span id="score">0</span> | High Score: <span id="highScore">0</span></div>
+            <div class="stats">Speed: <span id="speed">2.0</span> | Cars Dodged: <span id="carsDodged">0</span></div>
             <canvas id="gameCanvas" width="400" height="600"></canvas>
             <div class="controls">
-                <b>Controls: W/A/S/D to move | R to restart</b>
+                <b>Controls: W/A/S/D or Arrow Keys to move | P to pause | R to restart</b>
+            </div>
+            <div class="game-paused" id="gamePaused">
+                <p>PAUSED</p>
+                <p>Press P to resume</p>
             </div>
             <div class="game-over" id="gameOver">
                 <p>GAME OVER!</p>
@@ -58,12 +74,20 @@
             const canvas = document.getElementById('gameCanvas');
             const ctx = canvas.getContext('2d');
             const scoreElement = document.getElementById('score');
+            const highScoreElement = document.getElementById('highScore');
+            const speedElement = document.getElementById('speed');
+            const carsDodgedElement = document.getElementById('carsDodged');
             const gameOverElement = document.getElementById('gameOver');
+            const gamePausedElement = document.getElementById('gamePaused');
 
             // Game state
             let gameRunning = true;
+            let gamePaused = false;
             let score = 0;
+            let carsDodged = 0;
             let speed = 2;
+            let highScore = localStorage.getItem('racingGameHighScore') || 0;
+            highScoreElement.textContent = highScore;
 
             // Player car
             const player = {
@@ -96,8 +120,15 @@
             // Event listeners for keyboard
             document.addEventListener('keydown', (e) => {
                 keys[e.key.toLowerCase()] = true;
+                
+                // Restart game
                 if (e.key.toLowerCase() === 'r' && !gameRunning) {
                     resetGame();
+                }
+                
+                // Pause/unpause game
+                if (e.key.toLowerCase() === 'p' && gameRunning) {
+                    togglePause();
                 }
             });
 
@@ -120,7 +151,7 @@
 
             // Update game state
             function update() {
-                if (!gameRunning) return;
+                if (!gameRunning || gamePaused) return;
 
                 // Move player based on WASD
                 if (keys['w'] || keys['arrowup']) {
@@ -158,11 +189,21 @@
                     if (obstacle.y > canvas.height) {
                         obstacles.splice(index, 1);
                         score += 10;
+                        carsDodged += 1;
                         scoreElement.textContent = score;
+                        carsDodgedElement.textContent = carsDodged;
                         
-                        // Increase difficulty
-                        if (score % 100 === 0) {
-                            speed += 0.5;
+                        // Update high score
+                        if (score > highScore) {
+                            highScore = score;
+                            highScoreElement.textContent = highScore;
+                            localStorage.setItem('racingGameHighScore', highScore);
+                        }
+                        
+                        // Increase difficulty gradually
+                        if (carsDodged % 10 === 0 && speed < 8) {
+                            speed += 0.3;
+                            speedElement.textContent = speed.toFixed(1);
                         }
                     }
 
@@ -172,8 +213,8 @@
                     }
                 });
 
-                // Spawn new obstacles
-                if (Math.random() < 0.02) {
+                // Spawn new obstacles (adjusted for better gameplay)
+                if (Math.random() < 0.015 + (speed * 0.002)) {
                     createObstacle();
                 }
             }
@@ -233,13 +274,28 @@
                 gameOverElement.style.display = 'block';
             }
 
+            // Toggle pause
+            function togglePause() {
+                gamePaused = !gamePaused;
+                if (gamePaused) {
+                    gamePausedElement.style.display = 'block';
+                } else {
+                    gamePausedElement.style.display = 'none';
+                }
+            }
+
             // Reset game
             function resetGame() {
                 gameRunning = true;
+                gamePaused = false;
                 score = 0;
+                carsDodged = 0;
                 speed = 2;
                 scoreElement.textContent = score;
+                carsDodgedElement.textContent = carsDodged;
+                speedElement.textContent = speed.toFixed(1);
                 gameOverElement.style.display = 'none';
+                gamePausedElement.style.display = 'none';
                 player.x = canvas.width / 2 - 20;
                 player.y = canvas.height - 100;
                 obstacles.length = 0;
